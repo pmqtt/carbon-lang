@@ -76,6 +76,13 @@ interface MulWith(U:! Type) {
 }
 // TODO: constraint Mul { ... }
 
+interface ModWith(U:! Type) {
+  // TODO: = Self
+  let Result:! Type;
+  fn Op[me: Self](other: U) -> Result;
+}
+// TODO: constraint Mod { ... }
+
 // Note, these impls use the builtin addition for i32.
 external impl i32 as Negate where .Result == i32 {
   fn Op[me: i32]() -> i32 { return -me; }
@@ -88,6 +95,9 @@ external impl i32 as SubWith(i32) where .Result == i32 {
 }
 external impl i32 as MulWith(i32) where .Result == i32 {
   fn Op[me: i32](other: i32) -> i32 { return me * other; }
+}
+external impl i32 as ModWith(i32) where .Result == i32 {
+  fn Op[me: i32](other: i32) -> i32 { return me % other; }
 }
 
 // Note that Print is experimental, and not part of an accepted proposal, but
